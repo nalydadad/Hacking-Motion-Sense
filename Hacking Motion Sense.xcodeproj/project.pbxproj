@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		0F93C4852368731500637EA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C4842368731500637EA4 /* AppDelegate.swift */; };
 		0F93C4872368731500637EA4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C4862368731500637EA4 /* SceneDelegate.swift */; };
-		0F93C4892368731500637EA4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C4882368731500637EA4 /* ViewController.swift */; };
+		0F93C4892368731500637EA4 /* MSRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C4882368731500637EA4 /* MSRootViewController.swift */; };
 		0F93C48C2368731500637EA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F93C48A2368731500637EA4 /* Main.storyboard */; };
 		0F93C48E2368731A00637EA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F93C48D2368731A00637EA4 /* Assets.xcassets */; };
 		0F93C4912368731A00637EA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F93C48F2368731A00637EA4 /* LaunchScreen.storyboard */; };
 		0F93C49C2368731A00637EA4 /* Hacking_Motion_SenseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C49B2368731A00637EA4 /* Hacking_Motion_SenseTests.swift */; };
+		0F93C4A72368732A00637EA4 /* MSCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C4A62368732A00637EA4 /* MSCaptureManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +31,7 @@
 		0F93C4812368731500637EA4 /* Hacking Motion Sense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hacking Motion Sense.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F93C4842368731500637EA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F93C4862368731500637EA4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0F93C4882368731500637EA4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0F93C4882368731500637EA4 /* MSRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSRootViewController.swift; sourceTree = "<group>"; };
 		0F93C48B2368731500637EA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F93C48D2368731A00637EA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F93C4902368731A00637EA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 		0F93C4972368731A00637EA4 /* Hacking Motion SenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hacking Motion SenseTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F93C49B2368731A00637EA4 /* Hacking_Motion_SenseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hacking_Motion_SenseTests.swift; sourceTree = "<group>"; };
 		0F93C49D2368731A00637EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0F93C4A62368732A00637EA4 /* MSCaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCaptureManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +83,8 @@
 			children = (
 				0F93C4842368731500637EA4 /* AppDelegate.swift */,
 				0F93C4862368731500637EA4 /* SceneDelegate.swift */,
-				0F93C4882368731500637EA4 /* ViewController.swift */,
+				0F93C4882368731500637EA4 /* MSRootViewController.swift */,
+				0F93C4A62368732A00637EA4 /* MSCaptureManager.swift */,
 				0F93C48A2368731500637EA4 /* Main.storyboard */,
 				0F93C48D2368731A00637EA4 /* Assets.xcassets */,
 				0F93C48F2368731A00637EA4 /* LaunchScreen.storyboard */,
@@ -200,7 +203,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F93C4892368731500637EA4 /* ViewController.swift in Sources */,
+				0F93C4A72368732A00637EA4 /* MSCaptureManager.swift in Sources */,
+				0F93C4892368731500637EA4 /* MSRootViewController.swift in Sources */,
 				0F93C4852368731500637EA4 /* AppDelegate.swift in Sources */,
 				0F93C4872368731500637EA4 /* SceneDelegate.swift in Sources */,
 			);
