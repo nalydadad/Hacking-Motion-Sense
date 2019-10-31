@@ -10,13 +10,14 @@ import UIKit
 import AVFoundation
 
 protocol MSCaptureMangerDelegate: class {
-	func captureManager(_ manager: MSCaptureManager, didOutput image: UIImage)
+	func captureManager(_ manager: MSCaptureManager, didOutput image: UIImage, result: MSMotionValidateResult)
 }
 
 class MSCaptureManager: NSObject {
 	private var session = AVCaptureSession()
 	weak var delegate: MSCaptureMangerDelegate?
 	private let dataOutputQueue = DispatchQueue(label: "MSCaptureSessionManager", attributes: [], autoreleaseFrequency: .workItem)
+	private let validator = MSMotionValidator()
 	
 	func start() {
 		configureCaptureSession()
@@ -69,6 +70,7 @@ extension MSCaptureManager: AVCaptureDepthDataOutputDelegate {
 		let centerPoint = pixelBuffer.clamp()
 		let image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
 		let scale = CGFloat(CVPixelBufferGetWidth(pixelBuffer)) / CGFloat(image.size.width)
+		let direction = validator.validate(input: centerPoint)
 		DispatchQueue.main.async {
 			
 			UIGraphicsBeginImageContext(image.size)
@@ -79,7 +81,7 @@ extension MSCaptureManager: AVCaptureDepthDataOutputDelegate {
 			let result = UIGraphicsGetImageFromCurrentImageContext()
 			UIGraphicsEndImageContext()
 			
-			self.delegate?.captureManager(self, didOutput: result!)
+			self.delegate?.captureManager(self, didOutput: result!, result: direction)
 		}
 	}
 }
@@ -109,7 +111,6 @@ extension CVPixelBuffer {
 		}
 		let avgX = amount != 0 ? Double(amountX) / Double(amount) : 0
 		let avgY = amount != 0 ? Double(amountY) / Double(amount) : 0
-		print("\(avgX), \(avgY)")
 		CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
 		return CGPoint(x: avgX, y: avgY)
 	}

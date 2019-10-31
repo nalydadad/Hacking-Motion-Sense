@@ -15,6 +15,7 @@
 		0F93C4912368731A00637EA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F93C48F2368731A00637EA4 /* LaunchScreen.storyboard */; };
 		0F93C49C2368731A00637EA4 /* Hacking_Motion_SenseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C49B2368731A00637EA4 /* Hacking_Motion_SenseTests.swift */; };
 		0F93C4A72368732A00637EA4 /* MSCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93C4A62368732A00637EA4 /* MSCaptureManager.swift */; };
+		0FC738EB236A736900728ADC /* MSMotionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC738EA236A736900728ADC /* MSMotionValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		0F93C49B2368731A00637EA4 /* Hacking_Motion_SenseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hacking_Motion_SenseTests.swift; sourceTree = "<group>"; };
 		0F93C49D2368731A00637EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F93C4A62368732A00637EA4 /* MSCaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCaptureManager.swift; sourceTree = "<group>"; };
+		0FC738EA236A736900728ADC /* MSMotionValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSMotionValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				0F93C4862368731500637EA4 /* SceneDelegate.swift */,
 				0F93C4882368731500637EA4 /* MSRootViewController.swift */,
 				0F93C4A62368732A00637EA4 /* MSCaptureManager.swift */,
+				0FC738EA236A736900728ADC /* MSMotionValidator.swift */,
 				0F93C48A2368731500637EA4 /* Main.storyboard */,
 				0F93C48D2368731A00637EA4 /* Assets.xcassets */,
 				0F93C48F2368731A00637EA4 /* LaunchScreen.storyboard */,
@@ -206,6 +209,7 @@
 				0F93C4A72368732A00637EA4 /* MSCaptureManager.swift in Sources */,
 				0F93C4892368731500637EA4 /* MSRootViewController.swift in Sources */,
 				0F93C4852368731500637EA4 /* AppDelegate.swift in Sources */,
+				0FC738EB236A736900728ADC /* MSMotionValidator.swift in Sources */,
 				0F93C4872368731500637EA4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
