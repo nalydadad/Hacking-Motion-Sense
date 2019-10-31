@@ -40,11 +40,11 @@ class MSCaptureManager: NSObject {
 		}
 
 		let depthOutput = AVCaptureDepthDataOutput()
-//		depthOutput.isFilteringEnabled = true
+		depthOutput.isFilteringEnabled = true
 		depthOutput.setDelegate(self, callbackQueue: dataOutputQueue)
 		session.addOutput(depthOutput)
 		let depthConnection = depthOutput.connection(with: .depthData)
-//		depthConnection?.isVideoMirrored = true
+		depthConnection?.isVideoMirrored = true
 		depthConnection?.videoOrientation = .portrait
 
 		do {
@@ -66,26 +66,51 @@ extension MSCaptureManager: AVCaptureDepthDataOutputDelegate {
 		let convertedDepth: AVDepthData = depthData.depthDataType != kCVPixelFormatType_DepthFloat16 ?
 											depthData.converting(toDepthDataType: kCVPixelFormatType_DepthFloat32) : depthData
 		let pixelBuffer = convertedDepth.depthDataMap
-		pixelBuffer.clamp()
+		let centerPoint = pixelBuffer.clamp()
+		let image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
+		let scale = CGFloat(CVPixelBufferGetWidth(pixelBuffer)) / CGFloat(image.size.width)
 		DispatchQueue.main.async {
-			self.delegate?.captureManager(self, didOutput: UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer)))
+			
+			UIGraphicsBeginImageContext(image.size)
+			image.draw(at: .zero)
+			let context = UIGraphicsGetCurrentContext()!
+			context.setFillColor(UIColor.red.cgColor)
+			context.fillEllipse(in: CGRect(x: centerPoint.x * scale - 10, y: centerPoint.y * scale - 10, width: 20, height: 20))
+			let result = UIGraphicsGetImageFromCurrentImageContext()
+			UIGraphicsEndImageContext()
+			
+			self.delegate?.captureManager(self, didOutput: result!)
 		}
 	}
 }
 
 extension CVPixelBuffer {
-	func clamp() {
+	func clamp() -> CGPoint {
 		let width = CVPixelBufferGetWidth(self)
 		let height = CVPixelBufferGetHeight(self)
 		CVPixelBufferLockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
 		let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(self), to: UnsafeMutablePointer<Float32>.self)
+		
+		var amountX = 0
+		var amountY = 0
+		var amount = 0
 		for y in 0 ..< height {
 			for x in 0 ..< width {
-				var pixel = floatBuffer[y * width + x]
-				pixel = pixel < 0.3 ? 1 : 0
+				let index = y * width + x
+				var pixel: Float32 = 0
+				if floatBuffer[index] < 0.3 {
+					amountX += x
+					amountY += y
+					amount += 1
+					pixel = 1
+				}
 				floatBuffer[y * width + x] = pixel
 			}
 		}
+		let avgX = amount != 0 ? Double(amountX) / Double(amount) : 0
+		let avgY = amount != 0 ? Double(amountY) / Double(amount) : 0
+		print("\(avgX), \(avgY)")
 		CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
+		return CGPoint(x: avgX, y: avgY)
 	}
 }
