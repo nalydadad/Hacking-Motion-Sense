@@ -90,13 +90,16 @@ extension CVPixelBuffer {
 	func clamp() -> CGPoint {
 		let width = CVPixelBufferGetWidth(self)
 		let height = CVPixelBufferGetHeight(self)
+		let border = Int(Double(height)*0.15)
+		let minimalArea = 10000
+
 		CVPixelBufferLockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
 		let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(self), to: UnsafeMutablePointer<Float32>.self)
 		
 		var amountX = 0
 		var amountY = 0
 		var amount = 0
-		for y in 0 ..< height {
+		for y in border ..< height - border {
 			for x in 0 ..< width {
 				let index = y * width + x
 				var pixel: Float32 = 0
@@ -109,8 +112,8 @@ extension CVPixelBuffer {
 				floatBuffer[y * width + x] = pixel
 			}
 		}
-		let avgX = amount != 0 ? Double(amountX) / Double(amount) : 0
-		let avgY = amount != 0 ? Double(amountY) / Double(amount) : 0
+		let avgX = amount > minimalArea ? Double(amountX) / Double(amount) : 0
+		let avgY = amount > minimalArea ? Double(amountY) / Double(amount) : 0
 		CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
 		return CGPoint(x: avgX, y: avgY)
 	}

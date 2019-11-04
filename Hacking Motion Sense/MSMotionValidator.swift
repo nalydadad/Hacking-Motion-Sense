@@ -24,10 +24,10 @@ class MSMotionValidator: NSObject {
 		}
 		var newResult: MSMotionValidateResult = .unknown
 		if let lastPoint = self.lastPoint {
-			let newSpeed = input.x - lastPoint.x
-			print()
-			if (abs(newSpeed) > 100) {
-				newResult = newSpeed < 0 ? .left : .right
+			let newSpeedX = input.x - lastPoint.x
+			let newSpeedY = input.y - lastPoint.y
+			if (abs(newSpeedX) > 90 && abs(newSpeedY) < 50) {
+				newResult = newSpeedX < 0 ? .left : .right
 			}
 		}
 		self.lastPoint = input

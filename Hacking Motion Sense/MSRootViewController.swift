@@ -14,6 +14,7 @@ class MSRootViewController: UIViewController {
 	let resultImage = UIImageView()
 	let resultText = UILabel()
 	let toggle = UISwitch()
+	let toggleURLScheme = UISwitch()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -38,6 +39,12 @@ class MSRootViewController: UIViewController {
 			toggle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
 			toggle.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
 		])
+		toggleURLScheme.translatesAutoresizingMaskIntoConstraints = false
+		self.view.addSubview(toggleURLScheme)
+		NSLayoutConstraint.activate([
+			toggleURLScheme.trailingAnchor.constraint(equalTo: toggle.leadingAnchor, constant: -20),
+			toggleURLScheme.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+		])
 		manager.delegate = self
 		try? manager.start()
 	}
@@ -57,6 +64,24 @@ class MSRootViewController: UIViewController {
 			self.resultText.alpha = 1.0
 		}, completion: nil)
 	}
+
+	func playNext() {
+		let shortcut = "shortcuts://x-callback-url/run-shortcut?name=pn&x-success=hms://&x-cancel=hms://&x-error=hms://"
+		let url = URL(string: shortcut)!
+		UIApplication.shared.open(url,
+								  options: [:],
+								  completionHandler: nil)
+
+	}
+
+	func playPrevious() {
+		let shortcut = "shortcuts://x-callback-url/run-shortcut?name=pp&x-success=hms://&x-cancel=hms://&x-error=hms://"
+		let url = URL(string: shortcut)!
+		UIApplication.shared.open(url,
+								  options: [:],
+								  completionHandler: nil)
+
+	}
 }
 
 
@@ -73,7 +98,26 @@ extension MSRootViewController: MSCaptureMangerDelegate {
 		
 		if result != .unknown {
 			self.resultText.alpha = 1.0
-			resultText.text = result == .left ? "left" : "right"
+			switch result {
+			case .left:
+				self.resultText.text = "left"
+				if toggleURLScheme.isOn {
+					DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.75, execute: {
+						self.playPrevious()
+					})
+				}
+
+			case .right:
+				self.resultText.text = "right"
+				if toggleURLScheme.isOn {
+					DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.75, execute: {
+						self.playNext()
+					})
+				}
+
+			default:
+				break
+			}
 			resultText.sizeToFit()
 			UIView.animate(withDuration: 1, delay: 0.5, options: UIView.AnimationOptions.curveEaseInOut, animations: {
 				self.resultText.alpha = 0.0
